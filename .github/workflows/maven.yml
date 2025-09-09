@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  count:
+    name: Run tests
+    runs-on: ubuntu-latest
+    container: maven:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run mvn clean verify
+        run: mvn clean verify
+
+  checkstyle:
+    name: Checkstyle
+    runs-on: ubuntu-latest
+    container: maven:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run mvn checkstyle
+        run: mvn checkstyle:check
